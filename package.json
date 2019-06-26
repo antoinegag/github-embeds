@@ -1,0 +1,16 @@
+{
+  "name": "github-embed",
+  "version": "1.0.0",
+  "description": "Github embed discord bot",
+  "main": "src/index.js",
+  "author": "Antoine Gagnon",
+  "license": "MIT",
+  "dependencies": {
+    "discord.js": "^11.5.1",
+    "dotenv": "^8.0.0",
+    "node-fetch": "^2.6.0"
+  },
+  "scripts": {
+    "start": "node src/index.js"
+  }
+}
