@@ -42,4 +42,4 @@ Antoine Gagnon
 # License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
 
-_Entered in [Discord Community Hack Week](https://blog.discordapp.com/discord-community-hack-week-build-and-create-alongside-us-6b2a7b7bba33)_ under "Productivity"
+_Entered in [Discord Community Hack Week](https://blog.discordapp.com/discord-community-hack-week-build-and-create-alongside-us-6b2a7b7bba33) under "Productivity"_
