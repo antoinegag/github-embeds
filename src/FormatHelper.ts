@@ -12,7 +12,7 @@ export function underline(text: string): string {
   return `__${text}__`;
 }
 export function formatFileName(name: string): string {
-  return underline(bold(escapeSpecialText(name)));
+  return underline(escapeSpecialText(name));
 }
 export function buildFilePreview(name: string, extension: string, content: string): string {
   return [formatFileName(name), `\`\`\`${extensionToMarkup(extension)}`, content, `\`\`\``].join("\n");
