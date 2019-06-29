@@ -5,7 +5,7 @@ import { GithubFile } from "./GithubFile";
 import { buildFilePreview } from "./FormatHelper";
 
 const client = new Discord.Client();
-const GITHUB_URL_REGEX = /https?:\/\/(?:www.)?github.com\/([^\/]*)\/([^\/]*)\/blob\/((.*)\/(.*))(?:#L(\d*)-L(\d*))?/;
+const GITHUB_URL_REGEX = /https?:\/\/(?:w{3}\.)?github\.com\/([^\s\/]*)\/([^\s\/]*)\/blob\/([^\s#]+)(?:#L(\d+)(?:-L(\d+))?)?/;
 
 client.on("ready", (): void => {
   console.log(`Logged in as ${client.user.tag}!`);
@@ -29,7 +29,7 @@ client.on(
         return;
       }
 
-      return msg.channel.send(buildFilePreview(ghFile.filePath, ghFile.extension, content));
+      return msg.channel.send(buildFilePreview(ghFile.filePath, content, ghFile.extension));
     }
   },
 );

@@ -14,6 +14,6 @@ export function underline(text: string): string {
 export function formatFileName(name: string): string {
   return underline(escapeSpecialText(name));
 }
-export function buildFilePreview(name: string, extension: string, content: string): string {
+export function buildFilePreview(name: string, content: string, extension?: string): string {
   return [formatFileName(name), `\`\`\`${extensionToMarkup(extension)}`, content, `\`\`\``].join("\n");
 }

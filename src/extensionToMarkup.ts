@@ -1,4 +1,4 @@
-export function extensionToMarkup(extension: string): string {
+export function extensionToMarkup(extension?: string): string {
   let language = extension;
   switch (extension) {
     case "kt":
@@ -7,5 +7,5 @@ export function extensionToMarkup(extension: string): string {
     default:
       break;
   }
-  return language;
+  return language || "";
 }

@@ -10,41 +10,46 @@ export class GithubFile {
   username: string;
   repository: string;
   filePath: string;
-  extension: string;
+  extension?: string;
   name: string;
   lineRange: LineRange;
 
-  private content: string;
+  private content?: string;
 
-  private GITHUB_URL_REGEX = /https?:\/\/(?:www.)?github.com\/([^\/]*)\/([^\/]*)\/blob\/((.*)\/(.*))(?:#L(\d*)-L(\d*))?/;
-  private PREVIEW_MAX_LINES = 25;
+  private GITHUB_URL_REGEX = /https?:\/\/(?:w{3}\.)?github\.com\/([^\s\/]*)\/([^\s\/]*)\/blob\/([^\s#]+)(?:#L(\d+)(?:-L(\d+))?)?/;
+  public PREVIEW_MAX_LINES = 25;
 
   public constructor(url: string) {
-    this.parse(url);
-  }
-
-  private parse(url: string): void {
     const match = url.match(this.GITHUB_URL_REGEX);
+
+    if (!match) {
+      throw Error(`Invalid Github URL passed: ${url}`);
+    }
 
     this.url = url;
     this.username = match[1];
     this.repository = match[2];
     this.filePath = match[3];
-    this.name = match[5].replace(">", ""); // Remove from <url> <--
-    this.extension = this.name.match(/\.([^#]+)/)[1];
 
-    this.parseLineRange(this.name);
-  }
+    const dirs = this.filePath.split("/");
+    this.name = dirs[dirs.length - 1] || "";
 
-  private parseLineRange(fileName: string): void {
-    const range = fileName.match(/#L(\d*)(?:-L)?(\d*)?/);
+    const extensionMatch = this.name.match(/\.(.+)/);
+    if (extensionMatch) {
+      this.extension = extensionMatch[1];
+    }
+
     let lnStart = 0;
     let lnEnd = this.PREVIEW_MAX_LINES;
-    if (range) {
-      const singleLine = !range[2];
 
-      lnStart = parseInt(range[1]) || 0;
-      lnEnd = singleLine ? lnStart : parseInt(range[2]) || lnStart;
+    // If at least one L is defined
+    if (match[4]) {
+      const start = match[4];
+      const end = match[5];
+      const singleLine = !end;
+
+      lnStart = parseInt(start) || 0;
+      lnEnd = singleLine ? lnStart : parseInt(end) || lnStart;
 
       if (lnEnd - lnStart > this.PREVIEW_MAX_LINES) {
         lnEnd = lnStart + this.PREVIEW_MAX_LINES;
@@ -82,11 +87,15 @@ export class GithubFile {
 
     this.content = fileContent;
 
-    if (ignoreRange) return fileContent; // TODO: trim to not exceed Discord's limit (not in this class tho)
+    if (!this.content) {
+      return "";
+    }
+
+    if (ignoreRange) return this.content;
 
     const startAt = this.lineRange.start === 0 ? this.lineRange.start : this.lineRange.start - 1;
 
-    const lines = fileContent.split("\n");
+    const lines = this.content.split("\n");
     const previewLines = lines.slice(startAt, this.lineRange.end);
     const preview = previewLines.join("\n").replace(/[`]/, "$&"); // Sanitize
 
