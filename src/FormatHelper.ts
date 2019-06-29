@@ -1,7 +1,7 @@
 import { extensionToMarkup } from "./extensionToMarkup";
 
 export function escapeSpecialText(text: string): string {
-  return text.replace(/[`*_~]/, "$&").replace("@", "at");
+  return text.replace(/[`*_~]/g, "\\$&").replace("@", "at");
 }
 
 export function bold(text: string): string {

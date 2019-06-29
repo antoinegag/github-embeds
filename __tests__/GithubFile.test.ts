@@ -49,21 +49,21 @@ it("must parse the line range correctly", () => {
 });
 
 it("must parse the extension correctly", () => {
-  expect(fileWithLines.extension).toEqual("js");
+  expect(fileWithLines.extension).toBe("js");
   expect(licenseFile.extension).toBeUndefined();
 });
 
 it("must generate a valid raw URL", () => {
-  expect(licenseFile.getRawURL()).toEqual(
+  expect(licenseFile.getRawURL()).toBe(
     "https://raw.githubusercontent.com/antoinegag/github-embeds/d180773aff5b9acfb68121ba8b4139aa7bf7a8b9/LICENSE",
   );
-  expect(fileWithLines.getRawURL()).toEqual(
+  expect(fileWithLines.getRawURL()).toBe(
     "https://raw.githubusercontent.com/antoinegag/Sara/master/backend/arduino/serial.js",
   );
 });
 
 it("must retrieve content", async () => {
-  expect(await licenseFile.getFileContent()).toEqual(licenseContent);
+  expect(await licenseFile.getFileContent()).toBe(licenseContent);
 });
 
 it("must fail at invalid url", () => {
