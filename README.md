@@ -8,6 +8,14 @@ When sending the link to a file on Github, the bot will fetch the content of sai
 
 ![](./preview.png)
 
+I've also used this as a learning opportunity!
+
+I've used tools that I am completely new to
+
+- TypeScript
+- Jest
+- TSLint and Prettier
+
 # Getting started
 
 This will help you set up and run an instance of the bot
@@ -38,11 +46,16 @@ If you're on GNU/Linux `$ echo DISCORD_SECRET=your_token > .env`
 
 Run `yarn start` or `npm start` in your terminal to run the bot.
 
+# Running the tests
+
+Simply run `yarn test` to run the tests
+
 # Built with
 
 - [NodeJs](https://github.com/nodejs/node)
 - [Discord.js](https://github.com/discordjs/discord.js/)
 - [node-fetch](https://github.com/bitinn/node-fetch)
+- A bunch of other open source tools!
 
 # Authors
 
